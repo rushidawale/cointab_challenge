@@ -1,0 +1,57 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <input id="count" type="number" min="50" max="100" value="50"/>
+    <button onclick="fetchUser()">Fetch Users</button>
+    <button onclick="deleteUser()">Delete Users</button>
+    <button><a href="/userdetails">userDetails</a></button>
+
+    <script>
+        function fetchUser() {
+            let count = document.getElementById('count').value
+            alert(count)
+            var apiUrl = `http://localhost:8771/api/users?count=${count}`;
+            fetch(apiUrl,{method:'POST'}).then(response => {
+                console.log(response.json());
+            }).then(data => {
+                // Work with JSON data here
+                console.log(data);
+                alert("Successfully fetch users")
+            }).catch(err => {
+                // Do something for an error here
+                console.log(err)
+            });
+        }
+        function deleteUser() {
+            var apiUrl = 'http://localhost:8771/api/users';
+            fetch(apiUrl,{method:'DELETE'}).then(response => {
+                console.log(response.json());
+            }).then(data => {
+                // Work with JSON data here
+                console.log(data);
+                alert("Successfully deleted all users")
+            }).catch(err => {
+                // Do something for an error here
+                console.log(err)
+            });
+        }
+        function userDetails() {
+            var apiUrl = 'http://localhost:8771/api/users';
+            fetch(apiUrl,{method:'GET'}).then(async(response) => {
+                console.log(await response.json());
+            }).then(data => {
+                // Work with JSON data here
+                console.log(data);
+            }).catch(err => {
+                // Do something for an error here
+                console.log(err)
+            });
+        }
+    </script>
+</body>
+
+</html>
